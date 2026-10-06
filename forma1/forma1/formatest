@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форпост — Оставить заявку</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #7b2cbf 0%, #f77f00 100%);
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --white: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            color: var(--text-dark);
+        }
+        .header-logo {
+            padding: 30px 40px; font-size: 24px; font-weight: 800; color: white;
+            letter-spacing: 0.5px; display: flex; align-items: center; gap: 12px;
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+            transition: opacity 0.2s; /* Плавность при наведении */
+        }
+        .header-logo:hover {
+            opacity: 0.8; /* Легкий эффект при наведении на логотип */
+        }
+        .logo-icon {
+            width: 32px; height: 32px; background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%; backdrop-filter: blur(5px);
+        }
+        .main-content {
+            flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        .form-wrapper {
+            background: var(--white); padding: 40px; border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            width: 100%; max-width: 480px;
+        }
+        .form-wrapper h2 { 
+            text-align: center; margin-top: 0; margin-bottom: 30px; 
+            font-size: 28px; color: var(--text-dark);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { 
+            display: block; margin-bottom: 8px; font-weight: 600; 
+            font-size: 14px; color: var(--text-dark); 
+        }
+        .form-control {
+            width: 100%; padding: 14px 16px; border: 1px solid #e5e7eb;
+            border-radius: 12px; font-size: 16px; background: #f9fafb;
+            transition: all 0.3s ease; box-sizing: border-box;
+            font-family: inherit; color: var(--text-dark);
+        }
+        .form-control:focus {
+            outline: none; border-color: #7b2cbf; background: white;
+            box-shadow: 0 0 0 4px rgba(123, 44, 191, 0.1);
+        }
+        /* Стили для текстового поля (комментарий) */
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+        select.form-control { 
+            appearance: none; 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
+            background-repeat: no-repeat; background-position: right 1rem center; 
+            background-size: 1em; cursor: pointer;
+        }
+        .btn-submit {
+            width: 100%; background: var(--primary-gradient); color: white;
+            border: none; padding: 16px; border-radius: 12px;
+            font-size: 18px; font-weight: 700; cursor: pointer;
+            margin-top: 10px; transition: opacity 0.3s, transform 0.2s;
+        }
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+        @media (max-width: 480px) {
+            .header-logo { padding: 20px; font-size: 20px; }
+            .form-wrapper { padding: 25px; border-radius: 20px; }
+            .form-wrapper h2 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Логотип теперь является ссылкой на главную страницу -->
+    <a href="https://timurs-ops.github.io/forpost/" class="header-logo">
+        <div class="logo-icon"></div>
+        Форпост
+    </a>
+
+    <div class="main-content">
+        <div class="form-wrapper">
+            <h2>Обсудить проект</h2>
+            
+            <form action="https://formspree.io/f/mqpanbwn" method="POST">
+                <div class="form-group">
+                    <label for="name">Как вас зовут?</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Иван Иванов" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Номер телефона</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+7 (999) 000-00-00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Какая услуга интересует?</label>
+                    <select id="service" name="service" class="form-control" required>
+                        <option value="" disabled selected>Выберите услугу</option>
+                        <option value="Контент-продакшн">Контент-продакшн</option>
+                        <option value="Таргет">Таргетированная реклама</option>
+                        <option value="Блогеры">Работа с блогерами</option>
+                        <option value="Комьюнити">Комьюнити-менеджмент</option>
+                        <option value="Аналитика">Аналитика и отчётность</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tariff">Какой тариф рассматриваете?</label>
+                    <select id="tariff" name="tariff" class="form-control" required>
+                        <option value="" disabled selected>Выберите тариф</option>
+                        <option value="Light">Light</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Strong">Strong</option>
+                    </select>
+                </div>
+
+                <!-- НОВОЕ ПОЛЕ: Комментарий -->
+                <div class="form-group">
+                    <label for="message">Комментарий (необязательно)</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Расскажите о вашем проекте, задайте вопрос или опишите пожелания..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Получаем параметр plan из адресной строки (например, ?plan=Medium)
+    const urlParams = new URLSearchParams(window.location.search);
+    const planName = urlParams.get('plan');
+
+    if (planName) {
+        // 2. Находим все выпадающие списки на странице
+        const selects = document.querySelectorAll('select');
+        
+        selects.forEach(select => {
+            // 3. Проверяем каждую опцию в списке
+            for (let i = 0; i < select.options.length; i++) {
+                // Сравниваем текст или значение опции с названием тарифа (без учёта регистра)
+                if (select.options[i].text.toLowerCase() === planName.toLowerCase() || 
+                    select.options[i].value.toLowerCase() === planName.toLowerCase()) {
+                    
+                    // 4. Выбираем эту опцию
+                    select.selectedIndex = i;
+                    
+                    // 5. Сообщаем странице, что значение изменилось (важно для конструкторов сайтов)
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                    break;
+                }
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
