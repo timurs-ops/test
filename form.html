@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оставить заявку — Форпост</title>
+    <style>
+        /* Дизайн в точности как у оригинальной формы Formspree */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* Кнопка НАЗАД */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 24px;
+            transition: color 0.2s;
+        }
+
+        .btn-back:hover {
+            color: #1a1a2e;
+        }
+
+        h2 {
+            margin: 0 0 24px 0;
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #7f5af0; /* Фирменный цвет Formspree */
+            box-shadow: 0 0 0 3px rgba(127, 90, 240, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #7f5af0; /* Фирменный цвет Formspree */
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #6b46c1;
+        }
+
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        
+        .form-footer a {
+            color: #7f5af0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <!-- КНОПКА НАЗАД -->
+        <button class="btn-back" onclick="window.history.back()">← Назад</button>
+        
+        <h2>Свяжитесь с нами</h2>
+        
+        <!-- Форма отправляет данные на ваш Formspree -->
+        <form action="https://formspree.io/f/mqpanbwn" method="POST">
+            
+            <!-- МАГИЯ FORMSPREE: после отправки вернёт пользователя на главную страницу -->
+            <input type="hidden" name="_next" value="https://timurs-ops.github.io/forpost/">
+            
+            <!-- Скрытое поле, чтобы вы знали, с какой страницы пришла заявка -->
+            <input type="hidden" name="_subject" value="Новая заявка с сайта Форпост!">
+
+            <label for="name">Ваше имя</label>
+            <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="ivan@example.com" required>
+
+            <label for="message">Сообщение</label>
+            <textarea id="message" name="message" placeholder="Расскажите о вашем проекте..."></textarea>
+
+            <button type="submit">Отправить заявку</button>
+        </form>
+
+        <div class="form-footer">
+            Работает на <a href="https://formspree.io" target="_blank">Formspree</a>
+        </div>
+    </div>
+
+</body>
+</html>
