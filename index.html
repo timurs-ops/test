@@ -91,73 +91,6 @@
         .footer-col a:hover { color: #fff; }
         .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.4); }
 
-        .contact-popup-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
-        .contact-popup-overlay.active { display: flex; }
-        .contact-popup { background: #fff; border-radius: 20px; padding: 32px; max-width: 420px; width: 100%; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.15); animation: popupFadeIn 0.25s ease-out; }
-        @keyframes popupFadeIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .popup-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border: none; background: #f0f2f8; border-radius: 50%; cursor: pointer; font-size: 16px; color: #6b7280; transition: background 0.2s, color 0.2s; display: flex; align-items: center; justify-content: center; }
-        .popup-close:hover { background: #e5e7eb; color: #1a1a2e; }
-        
-        /* Стили для формы Formspree внутри попапа */
-        .btn-back-form {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: #6b7280;
-            font-size: 14px;
-            font-weight: 600;
-            background: #f0f2f8;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-bottom: 16px;
-            transition: all 0.2s;
-        }
-        .btn-back-form:hover {
-            background: #e5e7eb;
-            color: #1a1a2e;
-        }
-        .contact-popup h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
-        .contact-popup > p { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
-        
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 16px;
-            border: 1px solid #eef0f4;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: border-color 0.2s;
-            background: #f8f9fc;
-        }
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: #2196F3;
-            background: #fff;
-        }
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .form-submit {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .form-submit:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
         @media (max-width: 1024px) { .hero h1 { font-size: 44px; } .principles-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { header { padding: 12px 20px; } nav { gap: 16px; } nav a:not(.btn-nav) { display: none; } section { padding: 60px 20px; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 36px; } .section-title { font-size: 28px; } .principles-grid, .steps-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 32px; } .footer-links { gap: 32px; } .footer-bottom { flex-direction: column; gap: 8px; } }
         @media (max-width: 480px) { .hero h1 { font-size: 32px; } .btn-primary { padding: 14px 28px; font-size: 15px; } .pricing-price { font-size: 32px; } }
@@ -171,7 +104,7 @@
             <a href="#services">Услуги</a>
             <a href="#testimonials">Отзывы</a>
             <a href="#about">О нас</a>
-            <button class="btn-nav" onclick="openContactPopup()">Оставить заявку</button>
+            <button class="btn-nav" onclick="window.location.href='form.html'">Оставить заявку</button>
         </nav>
     </header>
 
@@ -257,7 +190,7 @@
                         <li>4 поста в месяц</li>
                         <li>Базовая реклама</li>
                     </ul>
-                    <button class="btn-pricing" onclick="openContactPopup('Light')">Выбрать</button>
+                    <a href="form.html" class="btn-pricing">Выбрать</a>
                 </div>
                 <div class="pricing-card selected" onclick="selectPricing(this)">
                     <h3>Medium</h3>
@@ -268,7 +201,7 @@
                         <li>Таргетированная реклама</li>
                         <li>Комьюнити-менеджмент</li>
                     </ul>
-                    <button class="btn-pricing" onclick="openContactPopup('Medium')">Выбрать</button>
+                    <a href="form.html" class="btn-pricing">Выбрать</a>
                 </div>
                 <div class="pricing-card" onclick="selectPricing(this)">
                     <h3>Strong</h3>
@@ -279,7 +212,7 @@
                         <li>Безлимитный контент</li>
                         <li>Работа с блогерами</li>
                     </ul>
-                    <button class="btn-pricing" onclick="openContactPopup('Strong')">Выбрать</button>
+                    <a href="form.html" class="btn-pricing">Выбрать</a>
                 </div>
             </div>
         </div>
@@ -302,7 +235,7 @@
                     <h4>Компания</h4>
                     <a href="#about">О нас</a>
                     <a href="#testimonials">Кейсы</a>
-                    <a href="javascript:void(0)" onclick="openContactPopup()">Контакты</a>
+                    <a href="form.html">Контакты</a>
                 </div>
             </div>
         </div>
@@ -312,64 +245,11 @@
         </div>
     </footer>
 
-    <!-- ПОПАП С ФОРМОЙ FORMSPREE И КНОПКОЙ "НАЗАД" -->
-    <div class="contact-popup-overlay" id="contactPopup" onclick="closeContactPopup(event)">
-        <div class="contact-popup" onclick="event.stopPropagation()">
-            <button class="popup-close" onclick="closeContactPopup()">✕</button>
-            
-            <!-- КНОПКА НАЗАД -->
-            <button class="btn-back-form" onclick="closeContactPopup()">← Назад</button>
-            
-            <h3>Оставить заявку</h3>
-            <p>Заполните форму, и мы свяжемся с вами в ближайшее время</p>
-            
-            <!-- ФОРМА FORMSPREE -->
-            <form action="https://formspree.io/f/mqpanbwn" method="POST">
-                <!-- Скрытое поле, чтобы после отправки Formspree вернул пользователя на ваш сайт -->
-                <input type="hidden" name="_next" value="https://timurs-ops.github.io/forpost/">
-                
-                <!-- Скрытое поле для передачи выбранного тарифа -->
-                <input type="hidden" name="plan" id="selectedPlanInput" value="">
-                
-                <input type="text" name="name" class="form-input" placeholder="Ваше имя" required>
-                <input type="email" name="email" class="form-input" placeholder="Ваш Email" required>
-                <input type="tel" name="phone" class="form-input" placeholder="Телефон">
-                <textarea name="message" class="form-textarea" placeholder="Сообщение или комментарий"></textarea>
-                
-                <button type="submit" class="form-submit">Отправить заявку</button>
-            </form>
-        </div>
-    </div>
-
     <script>
-        // 1. Переключение синей рамки при клике на карточку
         function selectPricing(clickedCard) {
             document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
             clickedCard.classList.add('selected');
         }
-
-        // 2. Открытие попапа с формой и передача названия тарифа
-        function openContactPopup(planName) {
-            document.getElementById('contactPopup').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Если передан тариф, записываем его в скрытое поле формы
-            if (planName) {
-                document.getElementById('selectedPlanInput').value = planName;
-            }
-        }
-        
-        function closeContactPopup(event) {
-            if (!event || event.target === document.getElementById('contactPopup')) {
-                document.getElementById('contactPopup').classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-        
-        // Закрытие по клавише Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') closeContactPopup();
-        });
     </script>
 </body>
 </html>
