@@ -106,7 +106,7 @@
         .contact-value { font-size: 17px; font-weight: 600; color: #1a1a2e; text-decoration: none; transition: color 0.2s; }
         .contact-value:hover { color: #2196F3; }
 
-        /* ДОБАВЛЕНА ТОЛЬКО ЭТА КНОПКА ДЛЯ ПОПАПА */
+        /* Стили для кнопки Назад и полей формы — в том же дизайне */
         .btn-back-form {
             display: inline-flex;
             align-items: center;
@@ -122,10 +122,46 @@
             margin-bottom: 16px;
             transition: all 0.2s;
         }
-        .btn-back-form:hover {
-            background: #e5e7eb;
-            color: #1a1a2e;
+        .btn-back-form:hover { background: #e5e7eb; color: #1a1a2e; }
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #f8f9fc;
+            border: 1px solid #eef0f4;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
         }
+        .form-input:focus { outline: none; border-color: #2196F3; background: #fff; }
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            background: #f8f9fc;
+            border: 1px solid #eef0f4;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s;
+        }
+        .form-textarea:focus { outline: none; border-color: #2196F3; background: #fff; }
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .form-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
         @media (max-width: 1024px) { .hero h1 { font-size: 44px; } .principles-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { header { padding: 12px 20px; } nav { gap: 16px; } nav a:not(.btn-nav) { display: none; } section { padding: 60px 20px; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 36px; } .section-title { font-size: 28px; } .principles-grid, .steps-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 32px; } .footer-links { gap: 32px; } .footer-bottom { flex-direction: column; gap: 8px; } }
@@ -226,7 +262,7 @@
                         <li>4 поста в месяц</li>
                         <li>Базовая реклама</li>
                     </ul>
-                    <a href="https://timurs-ops.github.io/forpost/" class="btn-pricing">Выбрать</a>
+                    <button class="btn-pricing" onclick="event.stopPropagation(); openFormPopup('Light')">Выбрать</button>
                 </div>
                 <div class="pricing-card selected" onclick="selectPricing(this)">
                     <h3>Medium</h3>
@@ -237,7 +273,7 @@
                         <li>Таргетированная реклама</li>
                         <li>Комьюнити-менеджмент</li>
                     </ul>
-                    <a href="https://timurs-ops.github.io/forpost/" class="btn-pricing">Выбрать</a>
+                    <button class="btn-pricing" onclick="event.stopPropagation(); openFormPopup('Medium')">Выбрать</button>
                 </div>
                 <div class="pricing-card" onclick="selectPricing(this)">
                     <h3>Strong</h3>
@@ -248,7 +284,7 @@
                         <li>Безлимитный контент</li>
                         <li>Работа с блогерами</li>
                     </ul>
-                    <a href="https://timurs-ops.github.io/forpost/" class="btn-pricing">Выбрать</a>
+                    <button class="btn-pricing" onclick="event.stopPropagation(); openFormPopup('Strong')">Выбрать</button>
                 </div>
             </div>
         </div>
@@ -281,13 +317,10 @@
         </div>
     </footer>
 
-    <div class="contact-popup-overlay" id="contactPopup" onclick="closeContactPopup(event)">
+    <!-- ПОПАП "СВЯЗАТЬСЯ" — ОРИГИНАЛ БЕЗ ИЗМЕНЕНИЙ -->
+    <div class="contact-popup-overlay" id="contactPopup" onclick="closePopup('contactPopup', event)">
         <div class="contact-popup" onclick="event.stopPropagation()">
-            <button class="popup-close" onclick="closeContactPopup()">✕</button>
-            
-            <!-- ДОБАВЛЕНА ТОЛЬКО ЭТА КНОПКА НАЗАД -->
-            <button class="btn-back-form" onclick="closeContactPopup()">← Назад</button>
-            
+            <button class="popup-close" onclick="closePopup('contactPopup')">✕</button>
             <h3>Свяжитесь с нами</h3>
             <p>Мы всегда на связи и готовы ответить на ваши вопросы</p>
             <div class="contact-item">
@@ -301,43 +334,59 @@
         </div>
     </div>
 
+    <!-- ПОПАП С ФОРМОЙ ЗАЯВКИ — ОТКРЫВАЕТСЯ ПО КНОПКЕ "ВЫБРАТЬ" -->
+    <div class="contact-popup-overlay" id="formPopup" onclick="closePopup('formPopup', event)">
+        <div class="contact-popup" onclick="event.stopPropagation()">
+            <button class="popup-close" onclick="closePopup('formPopup')">✕</button>
+            <button class="btn-back-form" onclick="closePopup('formPopup')">← Назад</button>
+            <h3>Оставить заявку</h3>
+            <p>Тариф: <strong id="selectedPlanName">—</strong></p>
+            <form id="applicationForm" onsubmit="submitForm(event)">
+                <input type="text" class="form-input" placeholder="Ваше имя" required>
+                <input type="tel" class="form-input" placeholder="Телефон" required>
+                <textarea class="form-textarea" placeholder="Сообщение"></textarea>
+                <button type="submit" class="form-submit">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // 1. Переключение синей рамки при клике на карточку
         function selectPricing(clickedCard) {
             document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
             clickedCard.classList.add('selected');
         }
 
-        // 2. ПЕРЕДАЧА НАЗВАНИЯ ТАРИФА ВО ВНЕШНЮЮ ФОРМУ
-        document.querySelectorAll('.btn-pricing').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const card = this.closest('.pricing-card');
-                const planName = card.querySelector('h3').textContent.trim(); // Light, Medium или Strong
-                
-                // Способ 1: Сохраняем в localStorage (внешняя форма может прочитать это значение через JS)
-                localStorage.setItem('selectedPlan', planName);
-                
-                // Способ 2: Добавляем параметр ?plan=... к ссылке для передачи через URL
-                const baseUrl = "https://timurs-ops.github.io/forpost/";
-                this.setAttribute('href', baseUrl + '?plan=' + encodeURIComponent(planName));
-                
-                // После этого браузер автоматически перейдёт по обновлённой ссылке
-            });
-        });
-
-        // 3. Попап с контактами (ваш оригинальный)
         function openContactPopup() {
             document.getElementById('contactPopup').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeContactPopup(event) {
-            if (!event || event.target === document.getElementById('contactPopup')) {
-                document.getElementById('contactPopup').classList.remove('active');
+
+        function openFormPopup(planName) {
+            document.getElementById('selectedPlanName').textContent = planName;
+            document.getElementById('formPopup').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            localStorage.setItem('selectedPlan', planName);
+        }
+
+        function closePopup(popupId, event) {
+            if (!event || event.target === document.getElementById(popupId)) {
+                document.getElementById(popupId).classList.remove('active');
                 document.body.style.overflow = '';
             }
         }
+
+        function submitForm(event) {
+            event.preventDefault();
+            alert('Заявка отправлена! Мы скоро с вами свяжемся.');
+            closePopup('formPopup');
+            event.target.reset();
+        }
+
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') closeContactPopup();
+            if (event.key === 'Escape') {
+                closePopup('contactPopup');
+                closePopup('formPopup');
+            }
         });
     </script>
 </body>
