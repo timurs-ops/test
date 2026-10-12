@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форпост — Оставить заявку</title>
     <style>
-        :root {
+        :root { 
+            /* вот код нужно добавить кноку назад чтобы она отправляла на главный экран, и больше нечего в коде не меняй */
             --primary-gradient: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%); /* Синхронизировал с главной страницей */
             --text-dark: #1f2937;
             --text-gray: #6b7280;
@@ -88,6 +89,30 @@
             margin-top: 10px; transition: opacity 0.3s, transform 0.2s;
         }
         .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        /* Стили для кнопки "Назад" */
+        .btn-back {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+        .btn-back:hover {
+            background: #f9fafb;
+            color: #1f2937;
+            border-color: #d1d5db;
+        }
         
         @media (max-width: 480px) {
             .header-logo { padding: 20px; }
@@ -176,6 +201,7 @@
                 </div>
 
                 <button type="submit" class="btn-submit">Отправить заявку</button>
+                <a href="index.html" class="btn-back">← Вернуться на главную</a>
             </form>
         </div>
     </div>
