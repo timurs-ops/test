@@ -12,11 +12,37 @@
         header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%); }
         .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
         .logo-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+        
         nav { display: flex; align-items: center; gap: 32px; }
         nav a { color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; transition: opacity 0.2s; }
         nav a:hover { opacity: 0.8; }
         .btn-nav { background: #fff; color: #1a1a2e; padding: 10px 24px; border-radius: 24px; font-weight: 600; font-size: 14px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+        /* Стили для кнопки бургер-меню */
+        .burger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+        .burger-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .burger-btn.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .burger-btn.active span:nth-child(2) { opacity: 0; }
+        .burger-btn.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
         .hero { background: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 24px 80px; position: relative; overflow: hidden; text-align: center; }
         .hero-content { max-width: 800px; width: 100%; z-index: 2; position: relative; }
@@ -106,20 +132,80 @@
         .contact-value { font-size: 17px; font-weight: 600; color: #1a1a2e; text-decoration: none; transition: color 0.2s; }
         .contact-value:hover { color: #2196F3; }
 
-        @media (max-width: 1024px) { .hero h1 { font-size: 44px; } .principles-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { header { padding: 12px 20px; } nav { gap: 16px; } nav a:not(.btn-nav) { display: none; } section { padding: 60px 20px; } .hero { padding: 100px 20px 60px; } .hero h1 { font-size: 36px; } .section-title { font-size: 28px; } .principles-grid, .steps-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; } .footer-content { flex-direction: column; gap: 32px; } .footer-links { gap: 32px; } .footer-bottom { flex-direction: column; gap: 8px; } }
-        @media (max-width: 480px) { .hero h1 { font-size: 32px; } .btn-primary { padding: 14px 28px; font-size: 15px; } .pricing-price { font-size: 32px; } }
+        @media (max-width: 1024px) { 
+            .hero h1 { font-size: 44px; } 
+            .principles-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); } 
+        }
+        
+        @media (max-width: 768px) { 
+            .burger-btn { display: flex; }
+            
+            /* Мобильное меню */
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 100vh;
+                background: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+                padding-top: 60px;
+            }
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+            .nav-menu a {
+                font-size: 20px;
+                font-weight: 600;
+                display: block;
+            }
+            .nav-menu .btn-nav {
+                margin-top: 16px;
+                width: 80%;
+                text-align: center;
+            }
+
+            header { padding: 12px 20px; }
+            section { padding: 60px 20px; }
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { font-size: 36px; }
+            .section-title { font-size: 28px; }
+            .principles-grid, .steps-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; gap: 32px; }
+            .footer-links { gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 8px; }
+        }
+        
+        @media (max-width: 480px) { 
+            .hero h1 { font-size: 32px; } 
+            .btn-primary { padding: 14px 28px; font-size: 15px; } 
+            .pricing-price { font-size: 32px; } 
+        }
     </style>
 </head>
 <body>
 
     <header>
         <a href="#" class="logo"><div class="logo-circle"></div>Форпост</a>
-        <nav>
+        
+        <!-- Кнопка бургер-меню -->
+        <button class="burger-btn" onclick="toggleMobileMenu()" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Добавлены id и class для управления меню -->
+        <nav id="mainNav" class="nav-menu">
             <a href="#services">Услуги</a>
             <a href="#testimonials">Отзывы</a>
             <a href="#about">О нас</a>
-            <!-- Объединено: текст из первого кода, функционал попапа из второго -->
             <a href="form.html" class="btn-nav" onclick="openContactPopup(); return false;">Оставить заявку</a>
         </nav>
     </header>
@@ -251,7 +337,6 @@
                     <h4>Компания</h4>
                     <a href="#about">О нас</a>
                     <a href="#testimonials">Кейсы</a>
-                    <!-- Объединено: ссылка на форму + открытие попапа при клике -->
                     <a href="form.html" onclick="openContactPopup(); return false;">Контакты</a>
                 </div>
             </div>
@@ -262,7 +347,6 @@
         </div>
     </footer>
 
-    <!-- Разметка попапа из второго кода -->
     <div class="contact-popup-overlay" id="contactPopup" onclick="closeContactPopup(event)">
         <div class="contact-popup" onclick="event.stopPropagation()">
             <button class="popup-close" onclick="closeContactPopup()">✕</button>
@@ -287,20 +371,13 @@
         }
 
         // 2. ПЕРЕДАЧА НАЗВАНИЯ ТАРИФА ВО ВНЕШНЮЮ ФОРМУ
-        // Объединено: логика из второго кода, но с целевой ссылкой form.html из первого кода
         document.querySelectorAll('.btn-pricing').forEach(btn => {
             btn.addEventListener('click', function() {
                 const card = this.closest('.pricing-card');
-                const planName = card.querySelector('h3').textContent.trim(); // Light, Medium или Strong
-                
-                // Сохраняем в localStorage (внешняя форма может прочитать это значение через JS)
+                const planName = card.querySelector('h3').textContent.trim();
                 localStorage.setItem('selectedPlan', planName);
-                
-                // Добавляем параметр ?plan=... к ссылке для передачи через URL
                 const baseUrl = "form.html";
                 this.setAttribute('href', baseUrl + '?plan=' + encodeURIComponent(planName));
-                
-                // После этого браузер автоматически перейдёт по обновлённой ссылке
             });
         });
 
@@ -317,6 +394,32 @@
         }
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') closeContactPopup();
+        });
+
+        // 4. Логика бургер-меню
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            const burger = document.querySelector('.burger-btn');
+            nav.classList.toggle('active');
+            burger.classList.toggle('active');
+            
+            // Блокируем прокрутку фона при открытом меню
+            if (nav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Закрываем меню при клике на любую ссылку внутри него
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.getElementById('mainNav');
+                const burger = document.querySelector('.burger-btn');
+                nav.classList.remove('active');
+                burger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
     </script>
 </body>
