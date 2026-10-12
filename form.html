@@ -19,14 +19,47 @@
             display: flex; flex-direction: column;
             color: var(--text-dark);
         }
+        
+        /* --- НОВЫЕ СТИЛИ ДЛЯ ЛОГОТИПА --- */
         .header-logo {
-            padding: 30px 40px; font-size: 24px; font-weight: 800; color: white;
-            letter-spacing: 0.5px; display: flex; align-items: center; gap: 12px;
+            padding: 24px 40px;
+            display: flex;
+            align-items: flex-start;
         }
-        .logo-icon {
-            width: 32px; height: 32px; background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%; backdrop-filter: blur(5px);
+        .logo { display: flex; align-items: center; text-decoration: none; }
+        .logo-badge {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        .logo-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+        .logo-subtext {
+            font-size: 10px;
+            font-weight: 700;
+            color: #4C1D95;
+            letter-spacing: 1.5px;
+            margin-top: 3px;
+        }
+        /* ---------------------------------- */
+
         .main-content {
             flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
         }
@@ -84,7 +117,10 @@
         .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
         
         @media (max-width: 480px) {
-            .header-logo { padding: 20px; font-size: 20px; }
+            .header-logo { padding: 20px; }
+            .logo-text { font-size: 24px; }
+            .logo-subtext { font-size: 9px; }
+            .logo-badge { padding: 8px 16px; }
             .form-wrapper { padding: 25px; border-radius: 20px; }
             .form-wrapper h2 { font-size: 24px; }
         }
@@ -92,9 +128,14 @@
 </head>
 <body>
 
+    <!-- ОБНОВЛЕННЫЙ ЛОГОТИП -->
     <div class="header-logo">
-        <div class="logo-icon"></div>
-        Форпост
+        <a href="index.html" class="logo" title="Вернуться на главную">
+            <div class="logo-badge">
+                <span class="logo-text">Форпост</span>
+                <span class="logo-subtext">SMM АГЕНТСТВО</span>
+            </div>
+        </a>
     </div>
 
     <div class="main-content">
