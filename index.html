@@ -10,8 +10,23 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         
         header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #6a0dad 0%, #9b30a0 25%, #c45a8a 45%, #d4845a 65%, #e8a830 85%, #f0c020 100%); }
-        .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #fff; text-decoration: none; }
-        .logo-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        
+        .logo-badge {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 18px 10px 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .logo-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .logo-svg { height: 44px; width: auto; display: block; }
         
         nav { display: flex; align-items: center; gap: 32px; }
         nav a { color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; transition: opacity 0.2s; }
@@ -19,7 +34,6 @@
         .btn-nav { background: #fff; color: #1a1a2e; padding: 10px 24px; border-radius: 24px; font-weight: 600; font-size: 14px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
-        /* Стили для кнопки бургер-меню */
         .burger-btn {
             display: none;
             flex-direction: column;
@@ -108,8 +122,8 @@
         footer { background: #1a1a2e; color: #fff; padding: 60px 24px 30px; }
         .footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 48px; flex-wrap: wrap; }
         .footer-brand { max-width: 360px; }
-        .footer-logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; margin-bottom: 16px; }
-        .footer-logo-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .footer-logo-svg { height: 40px; width: auto; display: block; }
         .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
         .footer-links { display: flex; gap: 64px; }
         .footer-col h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; color: rgba(255,255,255,0.9); }
@@ -139,8 +153,9 @@
         
         @media (max-width: 768px) { 
             .burger-btn { display: flex; }
+            .logo-badge { padding: 8px 14px 8px 8px; }
+            .logo-svg { height: 38px; }
             
-            /* Мобильное меню */
             .nav-menu {
                 position: fixed;
                 top: 0;
@@ -186,22 +201,52 @@
             .hero h1 { font-size: 32px; } 
             .btn-primary { padding: 14px 28px; font-size: 15px; } 
             .pricing-price { font-size: 32px; } 
+            .logo-badge { padding: 6px 12px 6px 6px; }
+            .logo-svg { height: 32px; }
         }
     </style>
 </head>
 <body>
 
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#7C3AED"/>
+                <stop offset="50%" stop-color="#A855F7"/>
+                <stop offset="100%" stop-color="#F59E0B"/>
+            </linearGradient>
+            <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#7C3AED"/>
+                <stop offset="50%" stop-color="#A855F7"/>
+                <stop offset="100%" stop-color="#F59E0B"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
     <header>
-        <a href="#" class="logo"><div class="logo-circle"></div>Форпост</a>
+        <a href="#" class="logo">
+            <div class="logo-badge">
+                <svg class="logo-svg" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg" aria-label="Форпост SMM Агентство">
+                    <!-- Чистая F -->
+                    <g transform="translate(5, 8)">
+                        <path d="M 8 8 L 18 8 L 18 42 L 8 42 Z" fill="url(#logoGrad)"/>
+                        <path d="M 8 8 L 42 8 L 38 16 L 8 16 Z" fill="url(#logoGrad)"/>
+                        <path d="M 18 24 L 38 24 L 35 32 L 18 32 Z" fill="url(#logoGrad)"/>
+                    </g>
+                    <!-- Текст "Форпост" -->
+                    <text x="55" y="44" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="url(#textGrad)" letter-spacing="-1">Форпост</text>
+                    <!-- Подпись "SMM АГЕНТСТВО" - увеличена и хорошо видна -->
+                    <text x="57" y="62" font-family="Arial, sans-serif" font-size="14" font-weight="800" fill="#4C1D95" letter-spacing="1">SMM АГЕНТСТВО</text>
+                </svg>
+            </div>
+        </a>
         
-        <!-- Кнопка бургер-меню -->
         <button class="burger-btn" onclick="toggleMobileMenu()" aria-label="Открыть меню">
             <span></span>
             <span></span>
             <span></span>
         </button>
 
-        <!-- Добавлены id и class для управления меню -->
         <nav id="mainNav" class="nav-menu">
             <a href="#services">Услуги</a>
             <a href="#testimonials">Отзывы</a>
@@ -323,7 +368,17 @@
     <footer id="contact">
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="footer-logo"><div class="footer-logo-circle"></div>Форпост</div>
+                <div class="footer-logo">
+                    <svg class="footer-logo-svg" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg" aria-label="Форпост SMM Агентство">
+                        <g transform="translate(5, 8)">
+                            <path d="M 8 8 L 18 8 L 18 42 L 8 42 Z" fill="url(#logoGrad)"/>
+                            <path d="M 8 8 L 42 8 L 38 16 L 8 16 Z" fill="url(#logoGrad)"/>
+                            <path d="M 18 24 L 38 24 L 35 32 L 18 32 Z" fill="url(#logoGrad)"/>
+                        </g>
+                        <text x="55" y="44" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="#fff" letter-spacing="-1">Форпост</text>
+                        <text x="57" y="62" font-family="Arial, sans-serif" font-size="14" font-weight="800" fill="#FCD34D" letter-spacing="1">SMM АГЕНТСТВО</text>
+                    </svg>
+                </div>
                 <p>SMM-агентство, которое помогает брендам расти в социальных сетях.</p>
             </div>
             <div class="footer-links">
@@ -364,13 +419,11 @@
     </div>
 
     <script>
-        // 1. Переключение синей рамки при клике на карточку
         function selectPricing(clickedCard) {
             document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
             clickedCard.classList.add('selected');
         }
 
-        // 2. ПЕРЕДАЧА НАЗВАНИЯ ТАРИФА ВО ВНЕШНЮЮ ФОРМУ
         document.querySelectorAll('.btn-pricing').forEach(btn => {
             btn.addEventListener('click', function() {
                 const card = this.closest('.pricing-card');
@@ -381,7 +434,6 @@
             });
         });
 
-        // 3. Попап с контактами
         function openContactPopup() {
             document.getElementById('contactPopup').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -396,14 +448,12 @@
             if (event.key === 'Escape') closeContactPopup();
         });
 
-        // 4. Логика бургер-меню
         function toggleMobileMenu() {
             const nav = document.getElementById('mainNav');
             const burger = document.querySelector('.burger-btn');
             nav.classList.toggle('active');
             burger.classList.toggle('active');
             
-            // Блокируем прокрутку фона при открытом меню
             if (nav.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -411,7 +461,6 @@
             }
         }
 
-        // Закрываем меню при клике на любую ссылку внутри него
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 const nav = document.getElementById('mainNav');
