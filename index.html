@@ -104,7 +104,6 @@
         .author-name { font-weight: 700; font-size: 15px; }
         .author-role { font-size: 13px; color: #6b7280; }
 
-        /* Карусель отзывов из первого кода */
         .comments-carousel {
             display: flex;
             flex-direction: row;
@@ -335,9 +334,8 @@
             <div class="section-label">Отзывы клиентов</div>
             <h2 class="section-title">Что говорят о нас</h2>
             
-            <!-- Карусель отзывов из первого кода -->
             <div id="commentsList" class="comments-carousel">
-                <!-- Комментарии будут добавляться сюда из Firebase -->
+                <!-- Отзывы будут загружаться сюда из Firebase -->
             </div>
             <button class="add-comment-btn" onclick="openCommentPopup()">Оставить отзыв</button>
         </div>
@@ -458,13 +456,14 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // ✅ ВАША РЕАЛЬНАЯ КОНФИГУРАЦИЯ FIREBASE
         const firebaseConfig = {
-            apiKey: "ВСТАВЬ_СЮДА_API_KEY",
-            authDomain: "ВСТАВЬ_СЮДА_PROJECT_ID.firebaseapp.com",
-            projectId: "ВСТАВЬ_СЮДА_PROJECT_ID",
-            storageBucket: "ВСТАВЬ_СЮДА_PROJECT_ID.appspot.com",
-            messagingSenderId: "ВСТАВЬ_СЮДА_SENDER_ID",
-            appId: "ВСТАВЬ_СЮДА_APP_ID"
+            apiKey: "AIzaSyBdL5admVgcLphn68E74dttfkFUbVQEzI8",
+            authDomain: "forpost-smm-aa4e2.firebaseapp.com",
+            projectId: "forpost-smm-aa4e2",
+            storageBucket: "forpost-smm-aa4e2.firebasestorage.app",
+            messagingSenderId: "892559810341",
+            appId: "1:892559810341:web:253c0fc76c39ada32f04cc"
         };
 
         let db;
@@ -472,7 +471,7 @@
             const app = initializeApp(firebaseConfig);
             db = getFirestore(app);
         } catch (e) {
-            console.error("Firebase не настроен. Добавьте свои данные конфигурации.", e);
+            console.error("Ошибка инициализации Firebase:", e);
         }
 
         function loadComments() {
