@@ -97,13 +97,50 @@
         .step-card p { font-size: 14px; color: #6b7280; line-height: 1.7; }
 
         .testimonials { background: #fff; }
-        .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
         .testimonial-card { background: #f8f9fc; border-radius: 16px; padding: 36px; border: 1px solid #eef0f4; }
         .testimonial-card blockquote { font-size: 15px; color: #374151; line-height: 1.7; margin-bottom: 24px; font-style: normal; }
         .testimonial-author { display: flex; align-items: center; gap: 14px; }
         .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #1a1a2e; }
         .author-name { font-weight: 700; font-size: 15px; }
         .author-role { font-size: 13px; color: #6b7280; }
+
+        /* Карусель отзывов из первого кода */
+        .comments-carousel {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 0 24px 24px 24px;
+            -webkit-overflow-scrolling: touch;
+            max-width: 1200px;
+            margin: 0 auto;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+        }
+        .comments-carousel::-webkit-scrollbar { height: 6px; }
+        .comments-carousel::-webkit-scrollbar-track { background: transparent; }
+        .comments-carousel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .comments-carousel > div {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 400px;
+            scroll-snap-align: start;
+        }
+        .add-comment-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: #2196F3;
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .add-comment-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(33,150,243,0.3); }
 
         .pricing { background: #f5f6fa; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
@@ -172,26 +209,17 @@
                 z-index: 999;
                 padding-top: 60px;
             }
-            .nav-menu.active {
-                transform: translateX(0);
-            }
-            .nav-menu a {
-                font-size: 20px;
-                font-weight: 600;
-                display: block;
-            }
-            .nav-menu .btn-nav {
-                margin-top: 16px;
-                width: 80%;
-                text-align: center;
-            }
+            .nav-menu.active { transform: translateX(0); }
+            .nav-menu a { font-size: 20px; font-weight: 600; display: block; }
+            .nav-menu .btn-nav { margin-top: 16px; width: 80%; text-align: center; }
 
             header { padding: 12px 20px; }
             section { padding: 60px 20px; }
             .hero { padding: 100px 20px 60px; }
             .hero h1 { font-size: 36px; }
             .section-title { font-size: 28px; }
-            .principles-grid, .steps-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .principles-grid, .steps-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .comments-carousel > div { max-width: 85vw; }
             .footer-content { flex-direction: column; gap: 32px; }
             .footer-links { gap: 32px; }
             .footer-bottom { flex-direction: column; gap: 8px; }
@@ -208,6 +236,7 @@
 </head>
 <body>
 
+    <!-- SVG-определения градиентов для логотипа -->
     <svg width="0" height="0" style="position:absolute">
         <defs>
             <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -239,14 +268,12 @@
         </a>
         
         <button class="burger-btn" onclick="toggleMobileMenu()" aria-label="Открыть меню">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
 
         <nav id="mainNav" class="nav-menu">
             <a href="#services">Услуги</a>
-            <a href="#testimonials">Отзывы</a>
+            <a href="#" onclick="openCommentPopup(); return false;">Отзывы</a>
             <a href="#about">О нас</a>
             <a href="form.html" class="btn-nav" onclick="openContactPopup(); return false;">Оставить заявку</a>
         </nav>
@@ -307,16 +334,12 @@
         <div class="container">
             <div class="section-label">Отзывы клиентов</div>
             <h2 class="section-title">Что говорят о нас</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <blockquote>«С Форпостом мы наконец-то увидели реальный рост. Команда профессиональная, всегда на связи и понимает бизнес-задачи на 100%.»</blockquote>
-                    <div class="testimonial-author"><div class="author-avatar">А</div><div><div class="author-name">Анна Смирнова</div><div class="author-role">Маркетинг-директор, BeautyLine</div></div></div>
-                </div>
-                <div class="testimonial-card">
-                    <blockquote>«За 3 месяца работы мы увеличили лиды в 2,5 раза, а стоимость заявки снизили на 30%. Отчётность прозрачная и регулярная.»</blockquote>
-                    <div class="testimonial-author"><div class="author-avatar">И</div><div><div class="author-name">Иван Петров</div><div class="author-role">Владелец, AutoPro</div></div></div>
-                </div>
+            
+            <!-- Карусель отзывов из первого кода -->
+            <div id="commentsList" class="comments-carousel">
+                <!-- Комментарии будут добавляться сюда из Firebase -->
             </div>
+            <button class="add-comment-btn" onclick="openCommentPopup()">Оставить отзыв</button>
         </div>
     </section>
 
@@ -352,7 +375,7 @@
                     <div class="pricing-price">от 250 000 ₽</div>
                     <div class="pricing-period">/месяц</div>
                     <ul class="pricing-features">
-                        <li>Индивидуальная медиа-стратегия, кросс-платформенное продвижение , работа с инфлюенсерами</li>
+                        <li>Индивидуальная медиа-стратегия, кросс-платформенное продвижение, работа с инфлюенсерами</li>
                         <li>Безлимит на публикации</li>
                         <li>Приоритетная поддержка 24/7, еженедельные созвоны, корректировка стратегии</li>
                     </ul>
@@ -399,6 +422,7 @@
         </div>
     </footer>
 
+    <!-- Попап с контактами -->
     <div class="contact-popup-overlay" id="contactPopup" onclick="closeContactPopup(event)">
         <div class="contact-popup" onclick="event.stopPropagation()">
             <button class="popup-close" onclick="closeContactPopup()">✕</button>
@@ -415,12 +439,112 @@
         </div>
     </div>
 
+    <!-- Попап с отзывами -->
+    <div class="contact-popup-overlay" id="commentPopup" onclick="closeCommentPopup(event)">
+        <div class="contact-popup" onclick="event.stopPropagation()">
+            <button class="popup-close" onclick="closeCommentPopup()">✕</button>
+            <h3>Оставить отзыв</h3>
+            <p>Поделитесь своим опытом работы с нами</p>
+            <form id="commentForm" style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
+                <input type="text" id="commentName" placeholder="Ваше имя" required style="padding: 14px 16px; border: 1px solid #eef0f4; border-radius: 12px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;">
+                <textarea id="commentText" placeholder="Ваш комментарий" rows="4" required style="padding: 14px 16px; border: 1px solid #eef0f4; border-radius: 12px; font-size: 15px; font-family: inherit; resize: vertical; outline: none; transition: border-color 0.2s;"></textarea>
+                <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; background: #2196F3; color: #fff;">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 1. Подключение облачной базы данных (Firebase) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "ВСТАВЬ_СЮДА_API_KEY",
+            authDomain: "ВСТАВЬ_СЮДА_PROJECT_ID.firebaseapp.com",
+            projectId: "ВСТАВЬ_СЮДА_PROJECT_ID",
+            storageBucket: "ВСТАВЬ_СЮДА_PROJECT_ID.appspot.com",
+            messagingSenderId: "ВСТАВЬ_СЮДА_SENDER_ID",
+            appId: "ВСТАВЬ_СЮДА_APP_ID"
+        };
+
+        let db;
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+        } catch (e) {
+            console.error("Firebase не настроен. Добавьте свои данные конфигурации.", e);
+        }
+
+        function loadComments() {
+            const commentsList = document.getElementById('commentsList');
+            if (!db) {
+                commentsList.innerHTML = '<p style="text-align: center; color: #ef4444; font-size: 15px; padding: 40px; background: #f8f9fc; border-radius: 16px; border: 1px solid #eef0f4; width: 100%; max-width: 100%;">⚠️ База данных не подключена.</p>';
+                return;
+            }
+
+            commentsList.innerHTML = '<p style="text-align: center; color: #6b7280; font-size: 15px; padding: 40px; background: #f8f9fc; border-radius: 16px; border: 1px solid #eef0f4; width: 100%; max-width: 100%;">Загрузка отзывов...</p>';
+            
+            const q = query(collection(db, "comments"), orderBy("date", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                commentsList.innerHTML = '';
+                if (snapshot.empty) {
+                    commentsList.innerHTML = '<p style="text-align: center; color: #6b7280; font-size: 15px; padding: 40px; background: #f8f9fc; border-radius: 16px; border: 1px solid #eef0f4; width: 100%; max-width: 100%;">Пока нет отзывов. Будьте первым!</p>';
+                    return;
+                }
+                snapshot.forEach((doc) => {
+                    const comment = doc.data();
+                    const div = document.createElement('div');
+                    div.className = 'testimonial-card';
+                    div.innerHTML = `
+                        <blockquote style="font-style: normal;">«${escapeHtml(comment.text)}»</blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">${escapeHtml(comment.name.charAt(0).toUpperCase())}</div>
+                            <div>
+                                <div class="author-name">${escapeHtml(comment.name)}</div>
+                                <div class="author-role">${new Date(comment.date).toLocaleDateString('ru-RU')}</div>
+                            </div>
+                        </div>
+                    `;
+                    commentsList.appendChild(div);
+                });
+            });
+        }
+
+        async function submitComment(name, text) {
+            if (!db) return false;
+            try {
+                await addDoc(collection(db, "comments"), {
+                    name: name,
+                    text: text,
+                    date: new Date().toISOString()
+                });
+                return true;
+            } catch (e) {
+                console.error("Ошибка при добавлении комментария: ", e);
+                return false;
+            }
+        }
+
+        window.loadComments = loadComments;
+        window.submitComment = submitComment;
+    </script>
+
+    <!-- 2. Основной скрипт сайта -->
     <script>
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 1. Переключение синей рамки при клике на карточку
         function selectPricing(clickedCard) {
             document.querySelectorAll('.pricing-card').forEach(card => card.classList.remove('selected'));
             clickedCard.classList.add('selected');
         }
 
+        // 2. Передача названия тарифа во внешнюю форму
         document.querySelectorAll('.btn-pricing').forEach(btn => {
             btn.addEventListener('click', function() {
                 const card = this.closest('.pricing-card');
@@ -431,6 +555,7 @@
             });
         });
 
+        // 3. Попап с контактами
         function openContactPopup() {
             document.getElementById('contactPopup').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -441,10 +566,59 @@
                 document.body.style.overflow = '';
             }
         }
+
+        // 4. Попап с отзывами
+        function openCommentPopup() {
+            document.getElementById('commentPopup').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCommentPopup(event) {
+            if (!event || event.target === document.getElementById('commentPopup')) {
+                document.getElementById('commentPopup').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') closeContactPopup();
+            if (event.key === 'Escape') {
+                closeContactPopup();
+                closeCommentPopup();
+            }
         });
 
+        // 5. Отправка формы комментариев
+        const commentForm = document.getElementById('commentForm');
+        if (commentForm) {
+            commentForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const nameInput = document.getElementById('commentName');
+                const textInput = document.getElementById('commentText');
+                const name = nameInput.value.trim();
+                const text = textInput.value.trim();
+                
+                if (name && text) {
+                    const submitBtn = commentForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Отправка...';
+                    submitBtn.disabled = true;
+
+                    const success = await window.submitComment(name, text);
+                    
+                    if (success) {
+                        nameInput.value = '';
+                        textInput.value = '';
+                        closeCommentPopup();
+                    } else {
+                        alert('Ошибка при отправке. Проверьте настройки базы данных.');
+                    }
+                    
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // 6. Логика бургер-меню
         function toggleMobileMenu() {
             const nav = document.getElementById('mainNav');
             const burger = document.querySelector('.burger-btn');
@@ -467,6 +641,13 @@
                 document.body.style.overflow = '';
             });
         });
+
+        // Загружаем комментарии при загрузке страницы
+        if (window.loadComments) {
+            window.loadComments();
+        } else {
+            setTimeout(() => window.loadComments && window.loadComments(), 500);
+        }
     </script>
 </body>
 </html>
